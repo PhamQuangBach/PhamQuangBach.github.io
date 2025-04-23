@@ -398,6 +398,12 @@ nav .fa-solid{
     .header-text h1{
         font-size: 30px;
     }
+    nav h1{
+        font-size: 30px;
+    }
+    nav .fa-bars{
+        padding-right: 10px;
+    }
     nav ul{
         background: #252323;
         position: fixed;
@@ -449,6 +455,12 @@ nav .fa-solid{
     .row{
         flex-direction: column-reverse;
     }
+    .tab-contents.active-tab{
+        height: 345px;
+    }
+    .tab-contents.active-tab#education{
+        height: 345px;
+    }
 
     .project-list{
         grid-template-columns: 100%;
@@ -463,6 +475,15 @@ nav .fa-solid{
     }
     .project-container:hover .project-description{
         height: 50%;
+    }
+    .project-container .project-description a{
+        color: #ff004f;
+        font-weight: Bold;
+        font-size: 25px;
+        text-decoration: none;
+    }
+    .project-container .project-description p{
+        padding-top: 10px;
     }
 
     .contact-left, .contact-right{
