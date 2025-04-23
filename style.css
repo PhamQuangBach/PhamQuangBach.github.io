@@ -1,0 +1,475 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+body{
+    background-color: black;
+    color:white;
+}
+
+.text-right{
+    text-align: right;
+}
+.text-center{
+    text-align: center;
+}
+
+.fade-in {
+    opacity: 0;
+    transition: opacity 0.5s ease-in, transform 0.5s ease-in;
+    transform: translateY(20px);
+}
+  
+.fade-in.appear {
+    opacity: 1;
+    transform: translateY(0px);
+}
+
+.btn{
+    display: block;
+    margin: 50px auto;
+    width: fit-content;
+    border: 1px solid #ff004f;
+    padding: 14px 50px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: white;
+    transition: 0.5s;
+}
+.btn:hover{
+    background: #ff004f;
+}
+
+#header{
+    width: 100%;
+    height: 100vh;
+    /*background-image: url(images/The_Floor_is_Lava.jpg);*/
+    background-size: cover;
+    background-position: center;
+}
+
+.container{
+    padding: 10px 10%;
+}
+
+nav{
+    display: flex;
+    background-color: #252323;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+}
+
+nav h1{
+    display: inline-block;
+    width: 700px;
+    font-size: 40px;
+    margin: 1vh 3vw;
+}
+
+nav .btn3{
+    margin: 1vh 2vw;
+}
+
+nav ul li{
+    display: inline-block;
+    list-style: none;
+    margin: 10px 20px;
+}
+
+nav ul li a{
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    position: relative;
+}
+
+.highlight-text::after{
+    content: '';
+    width: 0;
+    height: 3px;
+    background: #ff004f;
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    transition: 0.5s ease-in-out;
+    box-decoration-break:clone;
+}
+
+.highlight-text:hover::after{
+    width: 100%;
+}
+
+.fancy-link {
+    text-decoration: none;
+    background-image: linear-gradient(#ff004f, #ff004f);
+    background-repeat: no-repeat;
+    background-position: bottom left;
+    background-size: 0% 3px;
+    transition: background-size 0.5s ease-in-out;
+}
+.fancy-link:hover {
+    background-size: 100% 3px;
+    color: inherit;
+}
+
+.header-text{
+    margin-top: 18%;
+    margin-bottom: 20%;
+    margin-left: 20px;
+    font-size: 60px;
+}
+
+.header-text h1{
+    font-size: 60px;
+    margin: 20px;
+}
+
+.header-text h1 .greetings{
+    font-size: 80px;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.header-text h1 a{
+    display: inline-block;
+    position: relative;
+    text-decoration: none;
+    margin-bottom: 10px;
+    color: #ff004f;
+}
+
+
+/* ----------------About--------------- */
+
+#about{
+    padding: 80px 0;
+    color: #ababab;
+}
+
+.row{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.about-col-2{
+    flex-basis: 35%;
+}
+
+.about-col-2 img{
+    width: 100%;
+    border-radius: 15px;
+}
+
+.about-col-1{
+    flex-basis: 60%;
+    display: flex;
+    flex-direction: column;
+}
+
+.sub-title{
+    margin-bottom: 50px;
+    font-size: 60px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.tab-title{
+    display: flex;
+    margin: 20px 0 40px;
+}
+
+.tab-links{
+    margin-right: 50px;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    position: relative;
+}
+
+.tab-links.active-link::after{
+    width: 50%;
+}
+.tab-contents{
+    background-color: #252323;
+    color: #fff;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    padding: 0% 20px;
+    display: flex;
+    flex-direction: column;
+    height: 55px;
+    transition: 0.5s;
+    overflow: hidden;
+}
+
+.tab-contents:hover {
+    padding: 5px 20px;
+    height: 73px
+}
+.tab-contents.active-tab{
+    height: 275px;
+}
+.tab-contents.active-tab#education{
+    height: 285px;
+}
+.tab-contents.active-tab:hover{
+    padding: 0% 20px;
+}
+.tab-contents.active-tab h3::after{
+    width: 100%;
+}
+
+.tab-contents h3{
+    padding-top: 15px;
+    font-size: 25px;
+    position: relative;
+}
+.tab-contents ul{
+    margin-top: 30px;
+}
+.tab-contents ul li{
+    margin-left: 40px;
+    margin-bottom: 10px;
+}
+.tab-contents ul li span{
+    color: #ff004f;
+    font-size: 16px;
+}
+
+
+
+/*------------Projects------*/
+#projects{
+    padding: 30px 0;
+    margin: 50px 0px;
+}
+
+.project-list{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-gap: 4%;
+    margin-top: 50px;
+}
+
+.project-container{
+    background-color: #252323;
+    border-radius: 20px;
+    padding: 2.5% 2.5%;
+    height: 550px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    transition: 0.5s;
+}
+
+.project-container:hover{
+    transform: translateY(-10px);
+}
+.project-container:hover .project-graph{
+    height: 70%;
+    margin-bottom: 20px;
+}
+.project-container:hover .project-description{
+    height: 30%;
+}
+
+.project-container .project-graph{
+    height: 100%;
+    border-radius: 10px;
+    background-color: #fff;
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+    transition: 0.5s;   
+}
+.project-container .project-graph img{
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+.project-container .project-description{
+    overflow: hidden;
+    height: 0%;
+    width: 100%;
+    transition: 0.5s;
+}
+.project-container .project-description a{
+    color: #ff004f;
+    font-weight: Bold;
+    font-size: 30px;
+    text-decoration: none;
+}
+.project-container .project-description p{
+    padding-top: 10px;
+}
+
+/*--Contact--*/
+#contact{
+    padding: 50px 0;
+}
+
+.row-left{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+}
+.contact-left{
+    flex-basis: 35%;
+}
+.social-icons{
+    margin-top: 30px;
+}
+.contact-left p{
+    font-size: 20px;
+    margin: 10px 10px;
+    display: inline-block;
+}
+.social-icons a{
+    text-decoration: none;
+    color: #fff;
+    font-size: 30px;
+    margin-right: 10px;
+    transition: 0.5s;
+}
+.social-icons a:hover{
+    font-size: 33px;
+    color: #ff004f;
+}
+
+.btn.btn2{
+    display: inline-block;
+}
+
+.contact-right{
+    flex-basis: 60%;
+}
+.contact-right form{
+    width: 100%;
+}
+form input, form textarea{
+    width: 100%;
+    border: 0;
+    outline: none;
+    background: #262626;
+    padding: 15px;
+    margin: 15px 0;
+    color: white;
+    font-size: 18px;
+    border-radius: 6px;
+}
+
+form .btn2{
+    padding: 14px 60px;
+    font-size: 18px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.copyright{
+    width: 100%;
+    text-align: center;
+    padding: 25px 0;
+    background: #262626;
+    font-weight: 300;
+    margin-top: 20px;
+}
+
+/*--css for small screen--*/
+nav .fa-solid{
+    display: none;
+}
+
+@media only screen and (max-width: 600px){
+    .header-text{
+        margin-top: 50%;
+        font-size: 16px;
+    }
+    .header-text h1{
+        font-size: 30px;
+    }
+    nav ul{
+        background: #252323;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 200px;
+        height: 100vh;
+        padding-top: 50px;
+        z-index: 2;
+        transition: 0.5s;
+    }
+    
+    nav .btn3{
+        margin: 0 0;
+        padding: 20px 20px 20px 10px;
+    }
+
+    nav ul li{
+        display: block;
+        margin: 25px;
+    }
+    nav ul .fa-solid{
+        position: absolute;
+        top:25px;
+        left: 25px;
+    }
+    nav .fa-solid{
+        display: block;
+        font-size: 25px;
+        cursor: pointer;
+    }
+
+    .sub-title{
+        font-size: 40px;
+    }
+    .about-col-1, .about-col-2{
+        flex-basis: 100%;
+    }
+    .about-col-1{
+        margin-top: 30px;
+    }
+    .about-col-2{
+        font-size: 14px;
+    }
+    .tab-links{
+        font-size: 16px;
+        margin-right: 20px;
+    }
+    .row{
+        flex-direction: column-reverse;
+    }
+
+    .project-list{
+        grid-template-columns: 100%;
+        grid-gap: 1%;
+    }
+    .project-container{
+        height: 450px;
+    }
+    .project-container:hover .project-graph{
+        height: 50%;
+        margin-bottom: 10px;
+    }
+    .project-container:hover .project-description{
+        height: 50%;
+    }
+
+    .contact-left, .contact-right{
+        flex-basis: 100%;
+    }
+
+    .copyright{
+        font-size: 14px;
+    }
+}
