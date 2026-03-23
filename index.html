@@ -61,6 +61,99 @@
     }
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const API_URL = 'https://02frekr5za.execute-api.eu-north-1.amazonaws.com/fingrid_api/energy';
+
+    async function fetchData() {
+        try {
+            const response = await fetch(API_URL);
+            const rawData = await response.json();
+
+            const wind = rawData.filter(d => d.datasetid == 75).reverse();
+            const solar = rawData.filter(d => d.datasetid == 248).reverse();
+            const total = rawData.filter(d => d.datasetid == 74).reverse();
+
+            const labels = total.map(d => {
+                const dateObj = new Date(d.time);
+                return dateObj.toLocaleString('en-GB', {
+                    day: 'numeric',
+                    month: 'short',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            });
+
+            const ctx = document.getElementById('energyChart').getContext('2d');
+            document.getElementById('latest-value').innerText = "";
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Total Generation',
+                            data: total.map(d => d.value),
+                            borderColor: '#2c3e50',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.3
+                        },
+                        {
+                            label: 'Wind Power',
+                            data: wind.map(d => d.value),
+                            borderColor: '#00cc66',
+                            backgroundColor: 'rgba(0, 204, 102, 0.1)',
+                            fill: true,
+                            tension: 0.3
+                        },
+                        {
+                            label: 'Solar Power',
+                            data: solar.map(d => d.value),
+                            borderColor: '#f1c40f',
+                            fill: true,
+                            tension: 0.3
+                        }
+                    ]
+                },
+                options: {
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            align: 'center',
+                            onHover: (event, legendItem, legend) => {
+                                event.native.target.style.cursor = 'pointer';
+                            },
+                            onLeave: (event, legendItem, legend) => {
+                                event.native.target.style.cursor = 'default';
+                            },
+                            labels: {
+                                boxWidth: 20,
+                                padding: 20,
+                                font: {
+                                    size: 14,
+                                    weight: 'bold'
+                                },
+                                usePointStyle: true,
+                                cursor: 'pointer',
+                            },
+                        },
+                    },
+                    responsive: true,
+                    interaction: { mode: 'index', intersect: false },
+                    scales: { y: { beginAtZero: true } }
+                }
+            });
+        } catch (error) {
+            console.error("Failed to fetch data:", error);
+            document.getElementById('latest-value').innerText = "Error Loading Data";
+        }
+    }
+
+    window.addEventListener('load', fetchData);
+</script>
+
 <body>
     <div id="header">
         <nav>
@@ -129,6 +222,22 @@
     <div id="projects">
         <div class="container">
             <h1 class="sub-title">Projects</h1>
+            <div class="project-live-data fade-in">
+                <h2 class="section-header" style="color: #ff004f;">Live Data Lab: Finnish Energy Grid</h2>
+                <p class="section-description" style="padding-bottom: 2.5%;">
+                    Real-time Finnish energy generation data fetched from Fingrid via an automated AWS Data Pipeline (Lambda, S3, Glue, and Athena).
+                </p>
+                
+                <div class="c" style="background-color: #252323; border-radius: 20px; padding: 2.5%;">
+                    <div style="background: white; padding: 2.5%; border-radius: 10px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <span id="status-indicator" style="color: #666; font-size: 0.9rem;">● Live Updates</span>
+                            <strong id="latest-value" style="font-size: 1.2rem; color: #00cc66;">Loading...</strong>
+                        </div>
+                        <canvas id="energyChart" style="width: 100%; height: 300px;"></canvas>
+                    </div>
+                </div>
+            </div>
             <div class="project-list">
                 <div class="project-container fade-in">
                     <div class="project-graph">
@@ -197,8 +306,6 @@
     <div class="copyright">
         
     </div>
-
-    <a href="energy.html">Live Energy Data</a>
     <!--
     <div id="contact">
         <div class="container">
