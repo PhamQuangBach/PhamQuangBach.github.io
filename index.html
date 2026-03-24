@@ -70,18 +70,27 @@
             const response = await fetch(API_URL);
             const rawData = await response.json();
 
-            const wind = rawData.filter(d => d.datasetid == 75).reverse();
-            const solar = rawData.filter(d => d.datasetid == 248).reverse();
-            const total = rawData.filter(d => d.datasetid == 74).reverse();
+            const wind = Object.fromEntries(rawData.filter(d => d.datasetid == 75).map(r => [r.time, r.value]));
+            const solar = Object.fromEntries(rawData.filter(d => d.datasetid == 248).map(r => [r.time, r.value]));
+            const total = Object.fromEntries(rawData.filter(d => d.datasetid == 74).map(r => [r.time, r.value]));
+            const hydro = Object.fromEntries(rawData.filter(d => d.datasetid == 191).map(r => [r.time, r.value]));
+            const nuclear = Object.fromEntries(rawData.filter(d => d.datasetid == 188).map(r => [r.time, r.value]));
 
-            const labels = total.map(d => {
-                const dateObj = new Date(d.time);
+            const allTimestamps = Array.from(new Set(rawData.map(item => item.time))).sort();
+
+            const labels = allTimestamps.map(d => {
+                const dateObj = new Date(d);
                 return dateObj.toLocaleString('en-GB', {
                     day: 'numeric',
                     month: 'short',
                     hour: '2-digit',
                     minute: '2-digit'
                 });
+            });
+            
+            const labels_date = allTimestamps.map(d => {
+                const dateObj = new Date(d);
+                return dateObj;
             });
 
             const ctx = document.getElementById('energyChart').getContext('2d');
@@ -93,24 +102,38 @@
                     datasets: [
                         {
                             label: 'Total Generation',
-                            data: total.map(d => d.value),
-                            borderColor: '#2c3e50',
+                            data: allTimestamps.map(time => total[time] !== undefined ? total[time] : null),
+                            borderColor: '#1d2c3c',
                             borderWidth: 3,
                             fill: true,
                             tension: 0.3
                         },
                         {
                             label: 'Wind Power',
-                            data: wind.map(d => d.value),
-                            borderColor: '#00cc66',
+                            data: allTimestamps.map(time => wind[time] !== undefined ? wind[time] : null),
+                            borderColor: '#b0e0ff',
                             backgroundColor: 'rgba(0, 204, 102, 0.1)',
                             fill: true,
                             tension: 0.3
                         },
                         {
                             label: 'Solar Power',
-                            data: solar.map(d => d.value),
+                            data: allTimestamps.map(time => solar[time] !== undefined ? solar[time] : null),
                             borderColor: '#f1c40f',
+                            fill: true,
+                            tension: 0.3
+                        },
+                        {
+                            label: 'Hydro Power',
+                            data: allTimestamps.map(time => hydro[time] !== undefined ? hydro[time] : null),
+                            borderColor: '#2bb1fb',
+                            fill: true,
+                            tension: 0.3
+                        },
+                        {
+                            label: 'Nuclear Power',
+                            data: allTimestamps.map(time => nuclear[time] !== undefined ? nuclear[time] : null),
+                            borderColor: '#3dab31',
                             fill: true,
                             tension: 0.3
                         }
@@ -135,10 +158,12 @@
                                     size: 14,
                                     weight: 'bold'
                                 },
-                                usePointStyle: true,
                                 cursor: 'pointer',
                             },
                         },
+                    },
+                    elements: {
+                        point: {pointStyle: false}
                     },
                     responsive: true,
                     interaction: { mode: 'index', intersect: false },
