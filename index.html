@@ -105,7 +105,6 @@
                             data: allTimestamps.map(time => total[time] !== undefined ? total[time] : null),
                             borderColor: '#1d2c3c',
                             borderWidth: 3,
-                            fill: true,
                             tension: 0.3
                         },
                         {
@@ -113,28 +112,24 @@
                             data: allTimestamps.map(time => wind[time] !== undefined ? wind[time] : null),
                             borderColor: '#b0e0ff',
                             backgroundColor: 'rgba(0, 204, 102, 0.1)',
-                            fill: true,
                             tension: 0.3
                         },
                         {
                             label: 'Solar Power',
                             data: allTimestamps.map(time => solar[time] !== undefined ? solar[time] : null),
                             borderColor: '#f1c40f',
-                            fill: true,
                             tension: 0.3
                         },
                         {
                             label: 'Hydro Power',
                             data: allTimestamps.map(time => hydro[time] !== undefined ? hydro[time] : null),
                             borderColor: '#2bb1fb',
-                            fill: true,
                             tension: 0.3
                         },
                         {
                             label: 'Nuclear Power',
                             data: allTimestamps.map(time => nuclear[time] !== undefined ? nuclear[time] : null),
                             borderColor: '#3dab31',
-                            fill: true,
                             tension: 0.3
                         }
                     ]
