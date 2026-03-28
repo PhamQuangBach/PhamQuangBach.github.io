@@ -255,9 +255,21 @@ nav ul li a{
 
 .project-list{
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 48% 48%;
     grid-gap: 4%;
     margin-top: 50px;
+}
+
+.project-graph-container{
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 2.5% 2.5%;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    transition: 0.5s;
 }
 
 .project-container{
@@ -468,6 +480,9 @@ nav .fa-solid{
     }
     .project-container{
         height: 450px;
+    }
+    .project-graph-container{
+        margin-bottom: 2.5%;
     }
     .project-container:hover .project-graph{
         height: 50%;

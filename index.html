@@ -75,10 +75,23 @@
             const total = Object.fromEntries(rawData.filter(d => d.datasetid == 74).map(r => [r.time, r.value]));
             const hydro = Object.fromEntries(rawData.filter(d => d.datasetid == 191).map(r => [r.time, r.value]));
             const nuclear = Object.fromEntries(rawData.filter(d => d.datasetid == 188).map(r => [r.time, r.value]));
+            const windspeed = Object.fromEntries(rawData.filter(d => d.datasetid == 300).map(r => [r.time, r.value]));
+            const cloudcover = Object.fromEntries(rawData.filter(d => d.datasetid == 301).map(r => [r.time, r.value]));
 
+            const meteoTimestamps = Array.from(new Set(rawData.filter(d => d.datasetid == 300).map(item => item.time))).sort();
             const allTimestamps = Array.from(new Set(rawData.map(item => item.time))).sort();
 
             const labels = allTimestamps.map(d => {
+                const dateObj = new Date(d);
+                return dateObj.toLocaleString('en-GB', {
+                    day: 'numeric',
+                    month: 'short',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            });
+
+            const meteoLabels = meteoTimestamps.map(d => {
                 const dateObj = new Date(d);
                 return dateObj.toLocaleString('en-GB', {
                     day: 'numeric',
@@ -95,6 +108,9 @@
 
             const ctx = document.getElementById('energyChart').getContext('2d');
             document.getElementById('latest-value').innerText = "";
+            document.getElementById('latest-value-wind').innerText = "";
+            document.getElementById('latest-value-solar').innerText = "";
+
             new Chart(ctx, {
                 type: 'line',
                 data: {
@@ -136,6 +152,10 @@
                 },
                 options: {
                     plugins: {
+                        title: {
+                            display: true,
+                            text: 'Finnish Energy Generation By Source'
+                        },
                         legend: {
                             display: true,
                             position: 'top',
@@ -165,9 +185,122 @@
                     scales: { y: { beginAtZero: true } }
                 }
             });
+
+            const ctx_wind = document.getElementById('windChart').getContext('2d');
+            new Chart(ctx_wind, {
+                type: 'line',
+                data: {
+                    labels: meteoLabels,
+                    datasets: [
+                        {
+                            label: 'Wind Power',
+                            data: meteoTimestamps.map(time => wind[time] !== undefined ? wind[time] : null),
+                            borderColor: '#b0e0ff',
+                            backgroundColor: 'rgba(0, 204, 102, 0.1)',
+                            tension: 0.3,
+                            yAxisID: 'y',
+                        },
+                        {
+                            label: 'Wind Speed',
+                            data: meteoTimestamps.map(time => windspeed[time] !== undefined ? windspeed[time] : null),
+                            borderColor: '#3645bd',
+                            tension: 0.3,
+                            yAxisID: 'y1',
+                        }
+                    ]
+                },
+                options: {
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Wind Power Generation Against Wind Speed'
+                        }
+                    },
+                    elements: {
+                        point: {pointStyle: false}
+                    },
+                    responsive: true,
+                    interaction: { mode: 'index', intersect: false },
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+
+                            // grid line settings
+                            grid: {
+                            drawOnChartArea: false, // only want the grid lines for one axis to show up
+                            },
+                        },
+                    }
+                }
+            });
+
+            const ctx_solar = document.getElementById('solarChart').getContext('2d');
+            new Chart(ctx_solar, {
+                type: 'line',
+                data: {
+                    labels: meteoLabels,
+                    datasets: [
+                        {
+                            label: 'Solar Power',
+                            data: meteoTimestamps.map(time => solar[time] !== undefined ? solar[time] : null),
+                            borderColor: '#f1c40f',
+                            backgroundColor: 'rgba(0, 204, 102, 0.1)',
+                            tension: 0.3,
+                            yAxisID: 'y',
+                        },
+                        {
+                            label: 'Cloud Cover',
+                            data: meteoTimestamps.map(time => cloudcover[time] !== undefined ? cloudcover[time] : null),
+                            borderColor: '#857d7c',
+                            tension: 0.3,
+                            yAxisID: 'y1',
+                        }
+                    ]
+                },
+                options: {
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Wind Power Generation Against Wind Speed'
+                        }
+                    },
+                    elements: {
+                        point: {pointStyle: false}
+                    },
+                    responsive: true,
+                    interaction: { mode: 'index', intersect: false },
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+
+                            // grid line settings
+                            grid: {
+                            drawOnChartArea: false, // only want the grid lines for one axis to show up
+                            },
+                        },
+                    }
+                }
+            });
+
         } catch (error) {
             console.error("Failed to fetch data:", error);
             document.getElementById('latest-value').innerText = "Error Loading Data";
+            document.getElementById('latest-value-wind').innerText = "Error Loading Data";
+            document.getElementById('latest-value-solar').innerText = "Error Loading Data";
         }
     }
 
@@ -260,6 +393,17 @@
                             <strong id="latest-value" style="font-size: 1.2rem; color: #00cc66;">Loading...</strong>
                         </div>
                         <canvas id="energyChart" style="width: 100%; height: 300px;"></canvas>
+                        
+                    </div>
+                    <div class="project-list">
+                        <div class="project-graph-container">
+                            <strong id="latest-value-wind" style="font-size: 1.2rem; color: #00cc66;">Loading...</strong>
+                            <canvas id="windChart"></canvas>
+                        </div>
+                        <div class="project-graph-container">
+                            <strong id="latest-value-solar" style="font-size: 1.2rem; color: #00cc66;">Loading...</strong>
+                            <canvas id="solarChart""></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
