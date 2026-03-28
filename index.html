@@ -182,7 +182,15 @@
                     },
                     responsive: true,
                     interaction: { mode: 'index', intersect: false },
-                    scales: { y: { beginAtZero: true } }
+                    scales: { 
+                        y: { 
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Power Generated (MW)'
+                            }
+                        } 
+                    }
                 }
             });
 
@@ -226,6 +234,10 @@
                             type: 'linear',
                             display: true,
                             position: 'left',
+                            title: {
+                                display: true,
+                                text: 'Wind Power (MW)'
+                            }
                         },
                         y1: {
                             type: 'linear',
@@ -236,6 +248,11 @@
                             grid: {
                             drawOnChartArea: false, // only want the grid lines for one axis to show up
                             },
+                            
+                            title: {
+                                display: true,
+                                text: 'Wind Speed (m/s)'
+                            }
                         },
                     }
                 }
@@ -281,6 +298,11 @@
                             type: 'linear',
                             display: true,
                             position: 'left',
+                            
+                            title: {
+                                display: true,
+                                text: 'Solar Power (MW)'
+                            }
                         },
                         y1: {
                             type: 'linear',
@@ -291,6 +313,11 @@
                             grid: {
                             drawOnChartArea: false, // only want the grid lines for one axis to show up
                             },
+                            
+                            title: {
+                                display: true,
+                                text: 'Cloud Cover (%)'
+                            }
                         },
                     }
                 }
