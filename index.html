@@ -405,12 +405,15 @@
             <div class="project-live-data fade-in">
                 <a class="fancy-link" href="pdf/Fingrid_PowerBI_Dashboard.pdf" download style="color: #ff004f; font-weight: Bold; font-size: 30px; text-decoration: none;">Live Data Lab: Finnish Energy Grid</a>
                 <p class="section-description" style="padding-bottom: 2.5%;">
-                    Engineered an end-to-end serverless pipeline using AWS Lambda, S3, 
-                    and Athena to synchronize 3-minute and 15-minute energy telemetry 
-                    from the Fingrid API. I optimized the data flow with Apache Parquet 
-                    and custom SQL transformations, delivering a high-precision Power BI 
-                    dashboard that resolves real-time data drift and multi-velocity 
-                    synchronization challenges.
+
+                    Fully automated, event-driven end-to-end pipeline using AWS Lambda, S3, 
+                    and Athena to collect energy and weather data from the Fingrid API and Meteo API. 
+                    I optimized the data flow with Apache Parquet and custom SQL transformations to format and merge the 2 database. 
+                    The front end is a lightweight JavaScript application that interacts with a 
+                    custom REST API (API Gateway) to pull the latest 48 hours of insights dynamically.
+                    <a class="fancy-link" href="pdf/Fingrid_PowerBI_Dashboard.pdf" download style="color: #ff004f; font-weight: Bold; text-decoration: none;">
+                        Download the PowerBI Full Grid Analytics Report (PDF).
+                    </a>
                 </p>
                 
                 <div class="c" style="background-color: #252323; border-radius: 20px; padding: 2.5%;">
