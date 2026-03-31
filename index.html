@@ -69,17 +69,18 @@
         try {
             const response = await fetch(API_URL);
             const rawData = await response.json();
+            const actualData = rawData["actual"]
 
-            const wind = Object.fromEntries(rawData.filter(d => d.datasetid == 75).map(r => [r.time, r.value]));
-            const solar = Object.fromEntries(rawData.filter(d => d.datasetid == 248).map(r => [r.time, r.value]));
-            const total = Object.fromEntries(rawData.filter(d => d.datasetid == 74).map(r => [r.time, r.value]));
-            const hydro = Object.fromEntries(rawData.filter(d => d.datasetid == 191).map(r => [r.time, r.value]));
-            const nuclear = Object.fromEntries(rawData.filter(d => d.datasetid == 188).map(r => [r.time, r.value]));
-            const windspeed = Object.fromEntries(rawData.filter(d => d.datasetid == 300).map(r => [r.time, r.value]));
-            const cloudcover = Object.fromEntries(rawData.filter(d => d.datasetid == 301).map(r => [r.time, r.value]));
+            const wind = Object.fromEntries(actualData.filter(d => d.datasetid == 75).map(r => [r.time, r.value]));
+            const solar = Object.fromEntries(actualData.filter(d => d.datasetid == 248).map(r => [r.time, r.value]));
+            const total = Object.fromEntries(actualData.filter(d => d.datasetid == 74).map(r => [r.time, r.value]));
+            const hydro = Object.fromEntries(actualData.filter(d => d.datasetid == 191).map(r => [r.time, r.value]));
+            const nuclear = Object.fromEntries(actualData.filter(d => d.datasetid == 188).map(r => [r.time, r.value]));
+            const windspeed = Object.fromEntries(actualData.filter(d => d.datasetid == 300).map(r => [r.time, r.value]));
+            const cloudcover = Object.fromEntries(actualData.filter(d => d.datasetid == 301).map(r => [r.time, r.value]));
 
-            const meteoTimestamps = Array.from(new Set(rawData.filter(d => d.datasetid == 300).map(item => item.time))).sort();
-            const allTimestamps = Array.from(new Set(rawData.map(item => item.time))).sort();
+            const meteoTimestamps = Array.from(new Set(actualData.filter(d => d.datasetid == 300).map(item => item.time))).sort();
+            const allTimestamps = Array.from(new Set(actualData.map(item => item.time))).sort();
 
             const labels = allTimestamps.map(d => {
                 const dateObj = new Date(d);
