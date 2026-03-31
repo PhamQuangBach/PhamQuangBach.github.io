@@ -70,6 +70,7 @@
             const response = await fetch(API_URL);
             const rawData = await response.json();
             const actualData = rawData["actual"]
+            const predictData = rawData["predictions"];
 
             const wind = Object.fromEntries(actualData.filter(d => d.datasetid == 75).map(r => [r.time, r.value]));
             const solar = Object.fromEntries(actualData.filter(d => d.datasetid == 248).map(r => [r.time, r.value]));
@@ -79,8 +80,18 @@
             const windspeed = Object.fromEntries(actualData.filter(d => d.datasetid == 300).map(r => [r.time, r.value]));
             const cloudcover = Object.fromEntries(actualData.filter(d => d.datasetid == 301).map(r => [r.time, r.value]));
 
+
+            const windPred = Object.fromEntries(predictData.filter(d => d.datasetid == 75).map(r => [r.time, r.value]));
+            const solarPred = Object.fromEntries(predictData.filter(d => d.datasetid == 248).map(r => [r.time, r.value]));
+            const totalPred = Object.fromEntries(predictData.filter(d => d.datasetid == 74).map(r => [r.time, r.value]));
+            const hydroPred = Object.fromEntries(predictData.filter(d => d.datasetid == 191).map(r => [r.time, r.value]));
+            const nuclearPred = Object.fromEntries(predictData.filter(d => d.datasetid == 188).map(r => [r.time, r.value]));
+
             const meteoTimestamps = Array.from(new Set(actualData.filter(d => d.datasetid == 300).map(item => item.time))).sort();
-            const allTimestamps = Array.from(new Set(actualData.map(item => item.time))).sort();
+            const allTimestamps = Array.from(new Set([
+                ...actualData.map(item => item.time),
+                ...predictData.map(item => item.time)
+            ])).sort();
 
             const labels = allTimestamps.map(d => {
                 const dateObj = new Date(d);
@@ -148,6 +159,48 @@
                             data: allTimestamps.map(time => nuclear[time] !== undefined ? nuclear[time] : null),
                             borderColor: '#3dab31',
                             tension: 0.3
+                        },
+                        // Predicted
+                        {
+                            label: 'Total Generation (Predicted)',
+                            data: allTimestamps.map(time => totalPred[time] ?? null),
+                            borderColor: '#1d2c3c',
+                            borderWidth: 3,
+                            borderDash: [6, 4],
+                            tension: 0.3,
+                            pointStyle: false
+                        },
+                        {
+                            label: 'Wind Power (Predicted)',
+                            data: allTimestamps.map(time => windPred[time] ?? null),
+                            borderColor: '#b0e0ff',
+                            borderDash: [6, 4],
+                            tension: 0.3,
+                            pointStyle: false
+                        },
+                        {
+                            label: 'Solar Power (Predicted)',
+                            data: allTimestamps.map(time => solarPred[time] ?? null),
+                            borderColor: '#f1c40f',
+                            borderDash: [6, 4],
+                            tension: 0.3,
+                            pointStyle: false
+                        },
+                        {
+                            label: 'Hydro Power (Predicted)',
+                            data: allTimestamps.map(time => hydroPred[time] ?? null),
+                            borderColor: '#2bb1fb',
+                            borderDash: [6, 4],
+                            tension: 0.3,
+                            pointStyle: false
+                        },
+                        {
+                            label: 'Nuclear Power (Predicted)',
+                            data: allTimestamps.map(time => nuclearPred[time] ?? null),
+                            borderColor: '#3dab31',
+                            borderDash: [6, 4],
+                            tension: 0.3,
+                            pointStyle: false
                         }
                     ]
                 },
@@ -175,16 +228,20 @@
                                     weight: 'bold'
                                 },
                                 cursor: 'pointer',
+                                filter: (item) => !item.text.includes('Predicted')
                             },
                         },
                     },
                     elements: {
                         point: {pointStyle: false}
                     },
+                    spanGaps: true,
+                    clip: true,
                     responsive: true,
                     interaction: { mode: 'index', intersect: false },
                     scales: { 
                         y: { 
+                            min: 0,
                             beginAtZero: true,
                             title: {
                                 display: true,
