@@ -87,6 +87,23 @@
             const hydroPred = Object.fromEntries(predictData.filter(d => d.datasetid == 191).map(r => [r.time, r.value]));
             const nuclearPred = Object.fromEntries(predictData.filter(d => d.datasetid == 188).map(r => [r.time, r.value]));
 
+
+            const lastTotalTime = Object.keys(total).sort().at(-1);
+            const lastWindTime = Object.keys(wind).sort().at(-1);
+            const lastSolarTime = Object.keys(solar).sort().at(-1);
+            const lastHydroTime = Object.keys(hydro).sort().at(-1);
+            const lastNuclearTime = Object.keys(nuclear).sort().at(-1);
+
+            // Seed prediction lookups with the last actual value so it bridges the gap
+            if (lastTotalTime) totalPred[lastTotalTime] = total[lastTotalTime];
+            if (lastWindTime) windPred[lastWindTime] = wind[lastWindTime];
+            if (lastSolarTime) solarPred[lastSolarTime] = solar[lastSolarTime];
+            if (lastHydroTime) hydroPred[lastHydroTime] = hydro[lastHydroTime];
+            if (lastNuclearTime) nuclearPred[lastNuclearTime] = nuclear[lastNuclearTime];
+
+            console.log(wind)
+            console.log(windPred)
+
             const meteoTimestamps = Array.from(new Set(actualData.filter(d => d.datasetid == 300).map(item => item.time))).sort();
             const allTimestamps = Array.from(new Set([
                 ...actualData.map(item => item.time),
