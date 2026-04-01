@@ -237,6 +237,20 @@
                             onLeave: (event, legendItem, legend) => {
                                 event.native.target.style.cursor = 'default';
                             },
+                            onClick: (e, legendItem, legend) => {
+                                const chart = legend.chart;
+                                const label = legendItem.text;
+
+                                // Find actual and its matching predicted dataset
+                                chart.data.datasets.forEach((dataset, i) => {
+                                    if (dataset.label === label || dataset.label === `${label} (Predicted)`) {
+                                        const meta = chart.getDatasetMeta(i);
+                                        meta.hidden = meta.hidden === null ? true : !meta.hidden;
+                                    }
+                                });
+
+                                chart.update();
+                            },
                             labels: {
                                 boxWidth: 20,
                                 padding: 20,
