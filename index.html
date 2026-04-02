@@ -102,8 +102,6 @@
             if (lastNuclearTime) nuclearPred[lastNuclearTime] = nuclear[lastNuclearTime];
 
             console.log(rawData)
-            console.log(wind)
-            console.log(windPred)
 
             const meteoTimestamps = Array.from(new Set(actualData.filter(d => d.datasetid == 300).map(item => item.time))).sort();
             const allTimestamps = Array.from(new Set([
@@ -495,11 +493,11 @@
             <div class="project-live-data fade-in">
                 <a class="fancy-link" href="pdf/Fingrid_PowerBI_Dashboard.pdf" download style="color: #ff004f; font-weight: Bold; font-size: 30px; text-decoration: none;">Live Data Lab: Finnish Energy Grid</a>
                 <p class="section-description" style="padding-bottom: 2.5%;">
-
                     Event-driven AWS pipeline ingesting real-time energy and weather data from Fingrid and Meteo APIs 
                     into partitioned Parquet storage on S3. A Dockerised Lambda runs ARIMA forecasting on each ingestion, 
-                    predicting 2 hours ahead for 5 energy sources. Visualised on a live JavaScript/Chart.js dashboard via 
-                    a REST API backed by Amazon Athena.
+                    predicting 2 hours ahead for 5 energy sources. Fully automated with a GitHub Actions CI/CD pipeline 
+                    covering unit tests, Docker builds and Lambda deployments. Visualised on a live JavaScript/Chart.js 
+                    dashboard via a REST API backed by Amazon Athena.
                     <a class="fancy-link" href="pdf/Fingrid_PowerBI_Dashboard.pdf" download style="color: #ff004f; font-weight: Bold; text-decoration: none;">
                         Download the PowerBI Full Grid Analytics Report (PDF).
                     </a>
