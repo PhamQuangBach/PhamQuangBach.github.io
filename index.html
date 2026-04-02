@@ -101,6 +101,7 @@
             if (lastHydroTime) hydroPred[lastHydroTime] = hydro[lastHydroTime];
             if (lastNuclearTime) nuclearPred[lastNuclearTime] = nuclear[lastNuclearTime];
 
+            console.log(rawData)
             console.log(wind)
             console.log(windPred)
 
@@ -111,7 +112,7 @@
             ])).sort();
 
             const labels = allTimestamps.map(d => {
-                const dateObj = new Date(d);
+                const dateObj = new Date(d + 'Z');
                 return dateObj.toLocaleString('en-GB', {
                     day: 'numeric',
                     month: 'short',
@@ -121,7 +122,7 @@
             });
 
             const meteoLabels = meteoTimestamps.map(d => {
-                const dateObj = new Date(d);
+                const dateObj = new Date(d + 'Z');
                 return dateObj.toLocaleString('en-GB', {
                     day: 'numeric',
                     month: 'short',
