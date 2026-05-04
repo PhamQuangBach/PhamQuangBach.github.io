@@ -490,7 +490,7 @@
     <div id="projects">
         <div class="container">
             <h1 class="sub-title">Projects</h1>
-            <div class="project-live-data fade-in">
+            <div class="fade-in">
                 <a class="fancy-link" href="pdf/Fingrid_PowerBI_Dashboard.pdf" download style="color: #ff004f; font-weight: Bold; font-size: 30px; text-decoration: none;">Live Data Lab: Finnish Energy Grid</a>
                 <p class="section-description" style="padding-bottom: 2.5%;">
                     Event-driven AWS pipeline ingesting real-time energy and weather data from Fingrid and Meteo APIs 
@@ -502,28 +502,10 @@
                         Download the PowerBI Full Grid Analytics Report (PDF).
                     </a>
                 </p>
-                
-                <div class="c" style="background-color: #252323; border-radius: 20px; padding: 2.5%;">
-                    <div style="background: white; padding: 2.5%; border-radius: 10px;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                            <span id="status-indicator" style="color: #666; font-size: 0.9rem;">● Live Updates</span>
-                            <strong id="latest-value" style="font-size: 1.2rem; color: #00cc66;">Loading...</strong>
-                        </div>
-                        <canvas id="energyChart" style="width: 100%; height: 300px;"></canvas>
-                        
-                    </div>
-                    <div class="project-list">
-                        <div class="project-graph-container">
-                            <strong id="latest-value-wind" style="font-size: 1.2rem; color: #00cc66;">Loading...</strong>
-                            <canvas id="windChart"></canvas>
-                        </div>
-                        <div class="project-graph-container">
-                            <strong id="latest-value-solar" style="font-size: 1.2rem; color: #00cc66;">Loading...</strong>
-                            <canvas id="solarChart""></canvas>
-                        </div>
-                    </div>
-                </div>
+                <iframe src="https://phamquangbach.github.io/fingrid-data-lab/" width="100%" height="800px" style="border: none; border-radius: 10px;" >
+                </iframe>
             </div>
+
             <div class="project-list">
                 <div class="project-container fade-in">
                     <div class="project-graph">
