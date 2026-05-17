@@ -256,7 +256,8 @@ nav ul li a{
 .project-list{
     display: grid;
     grid-template-columns: 48% 48%;
-    grid-gap: 4%;
+    column-gap: 4%;
+    row-gap: 40px;
     margin-top: 50px;
 }
 
@@ -476,7 +477,8 @@ nav .fa-solid{
 
     .project-list{
         grid-template-columns: 100%;
-        grid-gap: 1%;
+        column-gap: 1%;
+        row-gap: 40px;
     }
     .project-container{
         height: 450px;
