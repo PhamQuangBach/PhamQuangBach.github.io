@@ -326,6 +326,65 @@ nav ul li a{
     padding-top: 10px;
 }
 
+/*--Game Pipeline--*/
+.gd-chip {
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid #444;
+    background: none;
+    color: #ababab;
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.gd-chip:hover { border-color: #ff004f; color: #ff004f; }
+ 
+.gd-stat-card {
+    flex: 1;
+    min-width: 110px;
+    padding: 16px;
+    border-radius: 8px;
+    background: #1a1a1a;
+}
+.gd-stat-val { font-size: 26px; font-weight: 700; color: #ff004f; margin-bottom: 4px; }
+.gd-stat-lbl { font-size: 12px; color: #ababab; }
+ 
+.gd-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid #333;
+}
+.gd-card:last-child { border-bottom: none; }
+.gd-card-name { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+.gd-card-preview {
+    font-size: 13px;
+    color: #ababab;
+    line-height: 1.55;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.gd-card-meta { font-size: 12px; color: #666; margin-top: 6px; }
+.gd-match { font-size: 15px; font-weight: 700; color: #ff004f; white-space: nowrap; padding-top: 2px; }
+ 
+.gd-top-row {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #333;
+    font-size: 14px;
+}
+.gd-top-row:last-child { border-bottom: none; }
+ 
+.gd-msg { font-size: 14px; color: #ababab; padding: 24px 0; text-align: center; }
+.gd-err { font-size: 14px; color: #f87171; padding: 24px 0; text-align: center; }
+
 /*--Contact--*/
 #contact{
     padding: 50px 0;
